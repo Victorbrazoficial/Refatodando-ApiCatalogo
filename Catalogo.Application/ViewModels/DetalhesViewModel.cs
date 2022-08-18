@@ -1,4 +1,6 @@
-﻿namespace Catalogo.Application.ViewModels
+﻿using Catalogo.Core.Entities;
+
+namespace Catalogo.Application.ViewModels
 {
     public class DetalhesViewModel
     {

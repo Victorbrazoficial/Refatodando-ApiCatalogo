@@ -12,5 +12,11 @@ namespace Catalogo.Core.Entities
         {
             Produtos = new Collection<Produto>();
         }
+
+        public void Update(string nome, string imagemUrl)
+        {
+            Nome = nome;
+            ImagemUrl = imagemUrl;
+        }
     }
 }

@@ -16,8 +16,10 @@ namespace Catalogo.Application.Services.Implementations
         }
 
         public void Atualiza(AtulizaCategoriaInputModel inputModel)
-        {
-            var categoria = new Categoria { Nome = inputModel.Nome, ImagemUrl = inputModel.ImagemUrl };
+        {        
+            var categoria = _catalogoDbContext.Categorias.SingleOrDefault(x => x.CategoriaId == inputModel.Id);
+
+            categoria.Update(inputModel.Nome, inputModel.ImagemUrl);
         }
 
         public int Cadastra(NovaCategoriaInputModel inputModel)
@@ -40,7 +42,8 @@ namespace Catalogo.Application.Services.Implementations
         {
             var categorias = _catalogoDbContext.Categorias;
             var categoriasViewModel = categorias
-                .Select(x => new CategoriaViewModel(x.Nome))
+                .Select(x => new CategoriaViewModel(x.CategoriaId, x.Nome, x.ImagemUrl, x.Produtos))
+                .OrderBy(x => x.Nome)
                 .ToList();
 
             return categoriasViewModel;
@@ -49,6 +52,9 @@ namespace Catalogo.Application.Services.Implementations
         public DetalhesViewModel GetById(int id)
         {
             var categoria = _catalogoDbContext.Categorias.SingleOrDefault(x => x.CategoriaId == id);
+
+            if (categoria is null)
+                return null;
 
             var detalhesViewModel = new DetalhesViewModel() 
             { 

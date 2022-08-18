@@ -1,3 +1,7 @@
+using Catalogo.Application.Services.Implementations;
+using Catalogo.Application.Services.Interfaces;
+using Catalogo.Infrastructure.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSingleton<CatalogoDbContext>();
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();

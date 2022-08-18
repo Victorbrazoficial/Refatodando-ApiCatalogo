@@ -3,5 +3,6 @@
     public class CategoriaModel
     {
         public int IdCategoria { get; set; }
+
     }
 }
