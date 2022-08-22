@@ -6,6 +6,12 @@ namespace Catalogo.API.Controllers
     [Route("api/produtos")]
     public class ProdutosController : ControllerBase
     {
+        private readonly IConfi
+        public ProdutosController()
+        {
+            
+        }
+        
         [HttpGet]
         public ActionResult GetProdutos(string query)
         {
