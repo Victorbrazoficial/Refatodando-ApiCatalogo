@@ -13,10 +13,11 @@ namespace Catalogo.Core.Entities
             Produtos = new Collection<Produto>();
         }
 
-        public void Update(string nome, string imagemUrl)
+        public void Update(string nome, string imagemUrl, int categoriaId)
         {
             Nome = nome;
             ImagemUrl = imagemUrl;
+            CategoriaId = categoriaId;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Catalogo.Application.Services.Implementations
         {        
             var categoria = _catalogoDbContext.Categorias.SingleOrDefault(x => x.CategoriaId == inputModel.Id);
 
-            categoria.Update(inputModel.Nome, inputModel.ImagemUrl);
+            categoria.Update(inputModel.Nome, inputModel.ImagemUrl, inputModel.Id);
         }
 
         public int Cadastra(NovaCategoriaInputModel inputModel)
