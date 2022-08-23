@@ -42,23 +42,23 @@ namespace Catalogo.Application.Services.Implementations
         {
             var categorias = _catalogoDbContext.Categorias;
             var categoriasViewModel = categorias
-                .Select(x => new CategoriaViewModel(x.CategoriaId, x.Nome, x.ImagemUrl, x.Produtos))
+                .Select(x => new CategoriaViewModel() {Nome = x.Nome, ImagemUrl = x.ImagemUrl })
                 .OrderBy(x => x.Nome)
                 .ToList();
 
             return categoriasViewModel;
         }
 
-        public DetalhesViewModel GetById(int id)
+        public DetalhesCategoriaIdViewModel GetById(int id)
         {
             var categoria = _catalogoDbContext.Categorias.SingleOrDefault(x => x.CategoriaId == id);
 
             if (categoria is null)
                 return null;
 
-            var detalhesViewModel = new DetalhesViewModel() 
+            var detalhesViewModel = new DetalhesCategoriaIdViewModel() 
             { 
-                Nome = categoria.Nome, ImagemUrl = categoria.ImagemUrl 
+                Nome = categoria.Nome, ImagemUrl = categoria.ImagemUrl, Id = categoria.CategoriaId, Produtos = categoria.Produtos 
             };
                     
             return detalhesViewModel;
