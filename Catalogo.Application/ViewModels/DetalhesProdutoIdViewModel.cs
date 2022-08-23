@@ -1,6 +1,6 @@
-﻿namespace Catalogo.Core.Entities
+﻿namespace Catalogo.Application.ViewModels
 {
-    public class Produto
+    public class DetalhesProdutoIdViewModel
     {
         public int ProdutoId { get; set; }
         public string? Nome { get; set; }
@@ -10,6 +10,6 @@
         public float Estoque { get; set; }
         public DateTime DataCadastro { get; set; }
         public int CategoriaId { get; set; }
-        public Categoria? Categoria { get; set; }
+
     }
 }
