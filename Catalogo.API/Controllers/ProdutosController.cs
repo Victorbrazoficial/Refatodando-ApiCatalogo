@@ -42,7 +42,7 @@ namespace Catalogo.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update(int id, [FromBody] AtualizaProdutoInputModel inputModel)
+        public ActionResult Update(int id, AtualizaProdutoInputModel inputModel)
         {            
             _produtoService.Atualiza(inputModel);
 
@@ -55,6 +55,8 @@ namespace Catalogo.API.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
+            _produtoService.Exclui(id); 
+
             return NoContent();
         }
     }
