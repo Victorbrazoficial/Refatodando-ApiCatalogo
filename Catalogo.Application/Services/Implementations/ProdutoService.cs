@@ -19,6 +19,9 @@ namespace Catalogo.Application.Services.Implementations
         {
             var produto = _catalogoDbContext.Produtos.SingleOrDefault(p => p.ProdutoId == inputModel.Id);
 
+            if (produto is null)
+                throw new NullReferenceException($"A referencia {produto} é nula");
+
             produto.Update(inputModel.Nome, inputModel.Descricao, inputModel.Preco, inputModel.ImagemUrl, inputModel.CategoriaId);
         }
 
@@ -42,7 +45,9 @@ namespace Catalogo.Application.Services.Implementations
 
         public void Exclui(int id)
         {
-            throw new NotImplementedException();
+            var produto = _catalogoDbContext.Produtos.SingleOrDefault(p => p.ProdutoId == id);
+
+            _catalogoDbContext.Produtos.Remove(produto);
         }
 
         public List<ProdutoViewModel> GetAll(string query)
