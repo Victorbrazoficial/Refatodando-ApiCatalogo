@@ -1,5 +1,4 @@
-﻿using Catalogo.API.Models;
-using Catalogo.Application.InputModels;
+﻿using Catalogo.Application.InputModels;
 using Catalogo.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

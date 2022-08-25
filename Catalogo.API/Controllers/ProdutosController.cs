@@ -1,11 +1,11 @@
-﻿using Catalogo.API.Models;
-using Catalogo.Application.InputModels;
+﻿using Catalogo.Application.InputModels;
 using Catalogo.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalogo.API.Controllers
 {
     [Route("api/produtos")]
+    [ApiController]
     public class ProdutosController : ControllerBase
     {
         private readonly IProdutoService _produtoService;
@@ -34,9 +34,11 @@ namespace Catalogo.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Cadastrar(ProdutoModel produto)
+        public ActionResult Cadastrar(NovoProdutoInputModel novoProduto)
         {
-            return CreatedAtAction(nameof(GetById), new { id = produto.IdProduto }, produto);
+            _produtoService.Cadastra(novoProduto);
+
+            return CreatedAtAction(nameof(GetById), new { id = novoProduto.ProdutoId }, novoProduto);
         }
 
         [HttpPut("{id}")]
