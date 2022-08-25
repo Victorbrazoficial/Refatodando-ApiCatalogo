@@ -12,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSingleton<CatalogoDbContext>();
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
 
 builder.Services.AddSwaggerGen();
 
