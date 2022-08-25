@@ -1,5 +1,5 @@
 ﻿using Catalogo.API.Models;
-using Catalogo.Application.Services.Implementations;
+using Catalogo.Application.InputModels;
 using Catalogo.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,8 +40,13 @@ namespace Catalogo.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update(int id, ProdutoUpdate produto)
-        {
+        public ActionResult Update(int id, [FromBody] AtualizaProdutoInputModel inputModel)
+        {            
+            _produtoService.Atualiza(inputModel);
+
+            if (id != inputModel.Id)
+                return NotFound("Produto não encontrado");
+
             return NoContent();
         }
 

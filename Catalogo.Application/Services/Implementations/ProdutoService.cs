@@ -7,7 +7,6 @@ namespace Catalogo.Application.Services.Implementations
 {
     public class ProdutoService : IProdutoService
     {
-
         private readonly CatalogoDbContext _catalogoDbContext;
 
         public ProdutoService(CatalogoDbContext catalogoDbContext)
@@ -17,7 +16,9 @@ namespace Catalogo.Application.Services.Implementations
 
         public void Atualiza(AtualizaProdutoInputModel inputModel)
         {
-            throw new NotImplementedException();
+            var produto = _catalogoDbContext.Produtos.SingleOrDefault(p => p.ProdutoId == inputModel.Id);
+
+            produto.Update(inputModel.Nome, inputModel.Descricao, inputModel.Preco, inputModel.ImagemUrl, inputModel.CategoriaId);
         }
 
         public int Cadastra(NovoProdutoInputModel inputModel)

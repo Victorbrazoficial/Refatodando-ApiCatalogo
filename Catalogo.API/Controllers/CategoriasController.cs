@@ -45,7 +45,7 @@ namespace Catalogo.API.Controllers
         [HttpPut("{id}")]
         public ActionResult Update(int id, AtulizaCategoriaInputModel inputModel)
         {
-             _categoriaService.Atualiza(inputModel);
+            _categoriaService.Atualiza(inputModel);
 
             if (id != inputModel.Id)
                 return NotFound("Categoria não encontrada");
