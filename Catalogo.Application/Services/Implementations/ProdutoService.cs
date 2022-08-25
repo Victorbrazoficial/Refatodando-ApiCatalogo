@@ -1,6 +1,7 @@
 using Catalogo.Application.InputModels;
 using Catalogo.Application.Services.Interfaces;
 using Catalogo.Application.ViewModels;
+using Catalogo.Core.Entities;
 using Catalogo.Infrastructure.Persistence;
 
 namespace Catalogo.Application.Services.Implementations
@@ -23,7 +24,20 @@ namespace Catalogo.Application.Services.Implementations
 
         public int Cadastra(NovoProdutoInputModel inputModel)
         {
-            throw new NotImplementedException();
+            var novoProduto = new Produto()
+            {
+                ProdutoId = inputModel.ProdutoId,
+                Nome = inputModel.Nome,
+                Preco = inputModel.Preco,
+                Descricao = inputModel.Descricao,
+                ImagemUrl = inputModel.ImagemUrl,
+                DataCadastro = inputModel.DataCadastro,
+                CategoriaId = inputModel.CategoriaId
+            };
+
+            _catalogoDbContext.Produtos.Add(novoProduto);
+
+            return novoProduto.ProdutoId;
         }
 
         public void Exclui(int id)
