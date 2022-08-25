@@ -1,4 +1,6 @@
 ﻿using Catalogo.API.Models;
+using Catalogo.Application.Services.Implementations;
+using Catalogo.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalogo.API.Controllers
@@ -6,22 +8,29 @@ namespace Catalogo.API.Controllers
     [Route("api/produtos")]
     public class ProdutosController : ControllerBase
     {
-        
-        public ProdutosController()
+        private readonly IProdutoService _produtoService;
+        public ProdutosController( IProdutoService produtoService)
         {
-            
+            _produtoService = produtoService;
         }
         
         [HttpGet]
         public ActionResult GetProdutos(string query)
         {
-            return Ok();
+            var produtos = _produtoService.GetAll(query);
+
+            return Ok(produtos);
         }
 
         [HttpGet("{id}")]
         public ActionResult GetById(int id)
         {
-            return Ok();
+            var produto = _produtoService.GetById(id);
+
+            if (produto is null)
+                return NotFound("Produto não encontrado");
+
+            return Ok(produto);
         }
 
         [HttpPost]
