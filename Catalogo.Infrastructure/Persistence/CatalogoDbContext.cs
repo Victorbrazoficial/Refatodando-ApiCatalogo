@@ -1,5 +1,6 @@
 ﻿using Catalogo.Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Catalogo.Infrastructure.Persistence
 {
@@ -11,6 +12,11 @@ namespace Catalogo.Infrastructure.Persistence
         public CatalogoDbContext(DbContextOptions<CatalogoDbContext> options) : base(options)
         {
            
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

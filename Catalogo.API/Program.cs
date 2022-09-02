@@ -1,6 +1,7 @@
 using Catalogo.Application.Services.Implementations;
 using Catalogo.Application.Services.Interfaces;
 using Catalogo.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSingleton<CatalogoDbContext>();
+var connectionString = builder.Configuration.GetConnectionString("CatalogoCs");
+builder.Services.AddDbContext<CatalogoDbContext>(options => options.UseSqlServer(connectionString));
+
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 
