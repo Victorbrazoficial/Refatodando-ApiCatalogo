@@ -20,6 +20,8 @@ namespace Catalogo.Application.Services.Implementations
             var categoria = _catalogoDbContext.Categorias.SingleOrDefault(x => x.CategoriaId == inputModel.Id);
 
             categoria.Update(inputModel.Nome, inputModel.ImagemUrl);
+
+            _catalogoDbContext.SaveChanges();
         }
 
         public int Cadastra(NovaCategoriaInputModel inputModel)
@@ -28,6 +30,8 @@ namespace Catalogo.Application.Services.Implementations
 
             _catalogoDbContext.Categorias.Add(categoria);
 
+            _catalogoDbContext.SaveChanges();
+
             return categoria.CategoriaId;
         }
 
@@ -35,7 +39,9 @@ namespace Catalogo.Application.Services.Implementations
         {
             var categoria = _catalogoDbContext.Categorias.SingleOrDefault(x => x.CategoriaId == id);
 
-            _catalogoDbContext.Categorias.Remove(categoria);    
+            _catalogoDbContext.Categorias.Remove(categoria);
+
+            _catalogoDbContext.SaveChanges();
         }
 
         public List<CategoriaViewModel> GetAll(string query)
