@@ -3,6 +3,7 @@ using Catalogo.Application.Services.Interfaces;
 using Catalogo.Application.ViewModels;
 using Catalogo.Core.Entities;
 using Catalogo.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Catalogo.Application.Services.Implementations
 {
@@ -48,7 +49,7 @@ namespace Catalogo.Application.Services.Implementations
         {
             var categorias = _catalogoDbContext.Categorias;
             var categoriasViewModel = categorias
-                .Select(x => new CategoriaViewModel() {Nome = x.Nome, ImagemUrl = x.ImagemUrl })
+                .Select(x => new CategoriaViewModel() {Id = x.CategoriaId, Nome = x.Nome, ImagemUrl = x.ImagemUrl })
                 .OrderBy(x => x.Nome)
                 .ToList();
 
@@ -68,6 +69,20 @@ namespace Catalogo.Application.Services.Implementations
             };
                     
             return detalhesViewModel;
+        }
+
+        public List<DetalhesCategoriaIdViewModel> GetCategoriaProdutos()
+        {
+            var categorias = _catalogoDbContext.Categorias;
+
+            var categoriaViewModel = categorias
+                .Include(p => p.Produtos)
+                .Select(x => new DetalhesCategoriaIdViewModel() { Id = x.CategoriaId, Nome = x.Nome, ImagemUrl = x.ImagemUrl, Produtos = x.Produtos })
+                .OrderBy(o => o.Id)
+                .ToList();
+
+            return categoriaViewModel;
+
         }
     }
 }

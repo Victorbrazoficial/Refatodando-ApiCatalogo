@@ -22,6 +22,13 @@ namespace Catalogo.API.Controllers
             return Ok(categoria);
         }
 
+        [HttpGet("produtos")]
+        public ActionResult GetCategoriasProdutos()
+        {
+            var categoriasProdutods = _categoriaService.GetCategoriaProdutos();
+            return Ok(categoriasProdutods);
+        }
+
         [HttpGet("{id}")]
         public ActionResult GetById(int id)
         {
