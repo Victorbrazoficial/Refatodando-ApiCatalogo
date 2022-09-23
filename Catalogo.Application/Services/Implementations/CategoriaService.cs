@@ -16,26 +16,6 @@ namespace Catalogo.Application.Services.Implementations
             _catalogoDbContext = catalogoDbContext;
         }
 
-        public void Atualiza(AtulizaCategoriaInputModel inputModel)
-        {        
-            var categoria = _catalogoDbContext.Categorias.SingleOrDefault(x => x.CategoriaId == inputModel.Id);
-
-            categoria.Update(inputModel.Nome, inputModel.ImagemUrl);
-
-            _catalogoDbContext.SaveChanges();
-        }
-
-        public int Cadastra(NovaCategoriaInputModel inputModel)
-        {
-            var categoria = new Categoria() { CategoriaId = inputModel.CategoriaId, Nome = inputModel.Nome, ImagemUrl = inputModel.ImagemUrl };
-
-            _catalogoDbContext.Categorias.Add(categoria);
-
-            _catalogoDbContext.SaveChanges();
-
-            return categoria.CategoriaId;
-        }
-
         public void Exclui(int id)
         {
             var categoria = _catalogoDbContext.Categorias.SingleOrDefault(x => x.CategoriaId == id);

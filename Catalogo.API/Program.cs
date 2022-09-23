@@ -1,6 +1,8 @@
+using Catalogo.Application.Commands.CategoriaCommand;
 using Catalogo.Application.Services.Implementations;
 using Catalogo.Application.Services.Interfaces;
 using Catalogo.Infrastructure.Persistence;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddMediatR(typeof(CadastrarCategoriaCommand)); 
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 

@@ -1,5 +1,7 @@
-﻿using Catalogo.Application.InputModels;
+﻿using Catalogo.Application.Commands.CategoriaCommand;
+using Catalogo.Application.InputModels;
 using Catalogo.Application.Services.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalogo.API.Controllers
@@ -9,10 +11,12 @@ namespace Catalogo.API.Controllers
     public class CategoriasController : ControllerBase
     {
         private readonly ICategoriaService _categoriaService;
+        private readonly IMediator _mediator;
 
-        public CategoriasController(ICategoriaService categoriaService)
+        public CategoriasController(ICategoriaService categoriaService, IMediator mediator)
         {
             _categoriaService = categoriaService;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -41,28 +45,33 @@ namespace Catalogo.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Cadastrar(NovaCategoriaInputModel novaCategoria)
+        public async Task<ActionResult> Cadastrar(CadastrarCategoriaCommand cadastroCategoria)
         {
-            var cadastraCategoria = _categoriaService.Cadastra(novaCategoria);
+            var cadastraCategoria = await _mediator.Send(cadastroCategoria);
 
-            return CreatedAtAction(nameof(GetById), new { id = novaCategoria.CategoriaId }, novaCategoria);
+            return CreatedAtAction(nameof(GetById), new { id = cadastroCategoria.CategoriaId }, cadastroCategoria);
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update(int id, AtulizaCategoriaInputModel inputModel)
+        public async Task<ActionResult> Update(int id, UpdateCategoriaCommand update)
         {
-            _categoriaService.Atualiza(inputModel);
+            await _mediator.Send(update);
 
-            if (id != inputModel.Id)
+            if (id != update.Id)
                 return NotFound("Categoria não encontrada");
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            _categoriaService.Exclui(id);
+            var command = new ExcluirCategoriaCommand() 
+            {
+                Id = id 
+            };
+            
+           await _mediator.Send(command);
             
             return NoContent();
         }
