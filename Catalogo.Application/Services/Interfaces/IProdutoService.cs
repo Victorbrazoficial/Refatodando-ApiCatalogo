@@ -8,8 +8,5 @@ namespace Catalogo.Application.Services.Interfaces
     {
         List<ProdutoViewModel> GetAll(string query);
         DetalhesProdutoIdViewModel GetById(int id);
-        int Cadastra(NovoProdutoInputModel inputModel);
-        void Atualiza(AtualizaProdutoInputModel inputModel);
-        void Exclui(int id);
     }
 }

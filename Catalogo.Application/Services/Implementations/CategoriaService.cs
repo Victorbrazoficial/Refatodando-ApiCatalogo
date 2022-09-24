@@ -1,7 +1,5 @@
-﻿using Catalogo.Application.InputModels;
-using Catalogo.Application.Services.Interfaces;
+﻿using Catalogo.Application.Services.Interfaces;
 using Catalogo.Application.ViewModels;
-using Catalogo.Core.Entities;
 using Catalogo.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,15 +12,6 @@ namespace Catalogo.Application.Services.Implementations
         public CategoriaService(CatalogoDbContext catalogoDbContext)
         {
             _catalogoDbContext = catalogoDbContext;
-        }
-
-        public void Exclui(int id)
-        {
-            var categoria = _catalogoDbContext.Categorias.SingleOrDefault(x => x.CategoriaId == id);
-
-            _catalogoDbContext.Categorias.Remove(categoria);
-
-            _catalogoDbContext.SaveChanges();
         }
 
         public List<CategoriaViewModel> GetAll(string query)

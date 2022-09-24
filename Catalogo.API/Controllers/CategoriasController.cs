@@ -20,21 +20,21 @@ namespace Catalogo.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetCategorias(string query)
+        public IActionResult GetCategorias(string query)
         {
             var categoria = _categoriaService.GetAll(query);
             return Ok(categoria);
         }
 
         [HttpGet("produtos")]
-        public ActionResult GetCategoriasProdutos()
+        public IActionResult GetCategoriasProdutos()
         {
             var categoriasProdutods = _categoriaService.GetCategoriaProdutos();
             return Ok(categoriasProdutods);
         }
 
         [HttpGet("{id}")]
-        public ActionResult GetById(int id)
+        public IActionResult GetById(int id)
         {
             var categoria = _categoriaService.GetById(id);
             
@@ -45,7 +45,7 @@ namespace Catalogo.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Cadastrar(CadastrarCategoriaCommand cadastroCategoria)
+        public async Task<IActionResult> Cadastrar(CadastrarCategoriaCommand cadastroCategoria)
         {
             var cadastraCategoria = await _mediator.Send(cadastroCategoria);
 
@@ -53,7 +53,7 @@ namespace Catalogo.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, UpdateCategoriaCommand update)
+        public async Task<IActionResult> Update(int id, UpdateCategoriaCommand update)
         {
             await _mediator.Send(update);
 
@@ -64,7 +64,7 @@ namespace Catalogo.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var command = new ExcluirCategoriaCommand() 
             {

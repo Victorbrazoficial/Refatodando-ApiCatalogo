@@ -1,5 +1,7 @@
-﻿using Catalogo.Application.InputModels;
+﻿using Catalogo.Application.Commands.ProdutoCommand;
+using Catalogo.Application.InputModels;
 using Catalogo.Application.Services.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalogo.API.Controllers
@@ -9,13 +11,15 @@ namespace Catalogo.API.Controllers
     public class ProdutosController : ControllerBase
     {
         private readonly IProdutoService _produtoService;
-        public ProdutosController( IProdutoService produtoService)
+        private readonly IMediator _mediator;
+        public ProdutosController(IProdutoService produtoService, IMediator mediator)
         {
             _produtoService = produtoService;
+            _mediator = mediator;
         }
         
         [HttpGet]
-        public ActionResult GetProdutos(string query)
+        public IActionResult GetProdutos(string query)
         {
             var produtos = _produtoService.GetAll(query);
 
@@ -23,7 +27,7 @@ namespace Catalogo.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult GetById(int id)
+        public IActionResult GetById(int id)
         {
             var produto = _produtoService.GetById(id);
 
@@ -34,28 +38,33 @@ namespace Catalogo.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Cadastrar(NovoProdutoInputModel novoProduto)
+        public async Task<IActionResult> Cadastrar(CadastrarProdutoCommand novoCadastro)
         {
-            _produtoService.Cadastra(novoProduto);
+            await _mediator.Send(novoCadastro);
 
-            return CreatedAtAction(nameof(GetById), new { id = novoProduto.ProdutoId }, novoProduto);
+            return CreatedAtAction(nameof(GetById), new { id = novoCadastro.ProdutoId }, novoCadastro);
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update(int id, AtualizaProdutoInputModel inputModel)
-        {            
-            _produtoService.Atualiza(inputModel);
+        public async Task<IActionResult> Update(int id, UpdateProdutoCommand updateProduto)
+        {
+            await _mediator.Send(updateProduto);
 
-            if (id != inputModel.Id)
+            if (id != updateProduto.Id)
                 return NotFound("Produto não encontrado");
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _produtoService.Exclui(id); 
+            var command = new ExcluirProdutoCommand()
+            {
+                Id = id
+            };
+
+            await _mediator.Send(command);
 
             return NoContent();
         }

@@ -15,47 +15,6 @@ namespace Catalogo.Application.Services.Implementations
             _catalogoDbContext = catalogoDbContext;
         }
 
-        public void Atualiza(AtualizaProdutoInputModel inputModel)
-        {
-            var produto = _catalogoDbContext.Produtos.SingleOrDefault(p => p.ProdutoId == inputModel.Id);
-
-            if (produto is null)
-                throw new NullReferenceException($"A referencia {produto} é nula");
-
-            produto.Update(inputModel.Nome, inputModel.Descricao, inputModel.Preco, inputModel.ImagemUrl, inputModel.CategoriaId);
-
-            _catalogoDbContext.SaveChanges();
-        }
-
-        public int Cadastra(NovoProdutoInputModel inputModel)
-        {
-            var novoProduto = new Produto()
-            {
-                ProdutoId = inputModel.ProdutoId,
-                Nome = inputModel.Nome,
-                Preco = inputModel.Preco,
-                Descricao = inputModel.Descricao,
-                ImagemUrl = inputModel.ImagemUrl,
-                DataCadastro = inputModel.DataCadastro,
-                CategoriaId = inputModel.CategoriaId
-            };
-
-            _catalogoDbContext.Produtos.Add(novoProduto);
-
-            _catalogoDbContext.SaveChanges();
-
-            return novoProduto.ProdutoId;
-        }
-
-        public void Exclui(int id)
-        {
-            var produto = _catalogoDbContext.Produtos.SingleOrDefault(p => p.ProdutoId == id);
-
-            _catalogoDbContext.Produtos.Remove(produto);
-
-            _catalogoDbContext.SaveChanges();
-        }
-
         public List<ProdutoViewModel> GetAll(string query)
         {
             var produtos = _catalogoDbContext.Produtos;

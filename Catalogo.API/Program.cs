@@ -1,4 +1,5 @@
 using Catalogo.Application.Commands.CategoriaCommand;
+using Catalogo.Application.Commands.ProdutoCommand;
 using Catalogo.Application.Services.Implementations;
 using Catalogo.Application.Services.Interfaces;
 using Catalogo.Infrastructure.Persistence;
@@ -11,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddMediatR(typeof(CadastrarCategoriaCommand)); 
+builder.Services.AddMediatR(typeof(CadastrarCategoriaCommand));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
