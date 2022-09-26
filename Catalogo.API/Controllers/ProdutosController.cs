@@ -30,9 +30,11 @@ namespace Catalogo.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var produto = _produtoService.GetById(id);
+            var getByIdDetalhes = new GetByIdDetalhesProduto() { Id = id };
+
+            var produto = await _mediator.Send(getByIdDetalhes);
 
             if (produto is null)
                 return NotFound("Produto não encontrado");

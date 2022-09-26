@@ -18,7 +18,7 @@ namespace Catalogo.Application.Queries.ProdutoQuerie
         {
             var produtos = _catalogoDbContext.Produtos;
             var produtoViewModel = await produtos
-                .Select(x => new ProdutoViewModel() { Nome = x.Nome, Descricao = x.Descricao, Estoque = x.Estoque, ImagemUrl = x.ImagemUrl })
+                .Select(x => new ProdutoViewModel() { Id = x.ProdutoId, Nome = x.Nome, Descricao = x.Descricao, Estoque = x.Estoque, ImagemUrl = x.ImagemUrl })
                 .OrderBy(x => x.Nome)
                 .ToListAsync();
 
