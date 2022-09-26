@@ -1,5 +1,6 @@
 ﻿using Catalogo.Application.Commands.CategoriaCommand;
 using Catalogo.Application.InputModels;
+using Catalogo.Application.Queries.CategoriaQuerie;
 using Catalogo.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +21,11 @@ namespace Catalogo.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCategorias(string query)
+        public async Task<IActionResult> GetCategorias(string query)
         {
-            var categoria = _categoriaService.GetAll(query);
+            var getAllCategoriasQuery = new GetAllCategorias() { Query = query };
+
+            var categoria = await _mediator.Send(getAllCategoriasQuery);
             return Ok(categoria);
         }
 
