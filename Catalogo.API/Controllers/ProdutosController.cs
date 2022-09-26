@@ -1,5 +1,6 @@
 ﻿using Catalogo.Application.Commands.ProdutoCommand;
 using Catalogo.Application.InputModels;
+using Catalogo.Application.Queries.ProdutoQuerie;
 using Catalogo.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +20,11 @@ namespace Catalogo.API.Controllers
         }
         
         [HttpGet]
-        public IActionResult GetProdutos(string query)
+        public async Task<IActionResult> GetProdutos(string query)
         {
-            var produtos = _produtoService.GetAll(query);
+            var getAllProdutos = new GetAllProdutos() { Query = query };
+
+            var produtos = await _mediator.Send(getAllProdutos);
 
             return Ok(produtos);
         }
