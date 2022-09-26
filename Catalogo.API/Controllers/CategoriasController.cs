@@ -30,16 +30,20 @@ namespace Catalogo.API.Controllers
         }
 
         [HttpGet("produtos")]
-        public IActionResult GetCategoriasProdutos()
+        public async Task<IActionResult> GetCategoriasProdutos()
         {
-            var categoriasProdutods = _categoriaService.GetCategoriaProdutos();
+            var query = new GetAllCategoriasProdutos();
+
+            var categoriasProdutods = await _mediator.Send(query);
             return Ok(categoriasProdutods);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var categoria = _categoriaService.GetById(id);
+            var getByIdDetalhes = new GetByIdDetalhesCategoria() { Id = id };
+
+            var categoria = await _mediator.Send(getByIdDetalhes);
             
             if (categoria is null)
                return NotFound("Categoria não encontrada");
