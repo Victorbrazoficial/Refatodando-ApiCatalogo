@@ -13,9 +13,19 @@ namespace Catalogo.Infrastructure.Repositories
             _catalogoDbContext = catalogoDbContext;
         }
 
-        public async Task<List<Categoria>> GetAll(string query)
+        public async Task<List<Categoria>> GetAllAsync(string query)
         {
             return await _catalogoDbContext.Categorias.ToListAsync();
+        }
+
+        public async Task<Categoria> GetByIdDetalhesAsync(int id)
+        {
+            var categoria = await _catalogoDbContext.Categorias.SingleOrDefaultAsync(x => x.CategoriaId == id);
+
+            if (categoria is null)
+                return null;
+
+            return categoria;
         }
     }
 }

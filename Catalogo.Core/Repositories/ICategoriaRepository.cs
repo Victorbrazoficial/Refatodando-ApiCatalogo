@@ -4,6 +4,7 @@ namespace Catalogo.Core.Repositories
 {
     public interface ICategoriaRepository
     {
-        Task<List<Categoria>> GetAll(string query);
+        Task<List<Categoria>> GetAllAsync(string query);
+        Task<Categoria> GetByIdDetalhesAsync(int id);
     }
 }

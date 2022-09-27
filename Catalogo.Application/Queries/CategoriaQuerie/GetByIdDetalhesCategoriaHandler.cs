@@ -1,22 +1,21 @@
 ﻿using Catalogo.Application.ViewModels;
-using Catalogo.Infrastructure.Persistence;
+using Catalogo.Core.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Catalogo.Application.Queries.CategoriaQuerie
 {
     public class GetByIdDetalhesCategoriaHandler : IRequestHandler<GetByIdDetalhesCategoria, DetalhesCategoriaIdViewModel>
     {
-        public CatalogoDbContext _catalogoDbContext;
+        public ICategoriaRepository _categoriaRepository;
 
-        public GetByIdDetalhesCategoriaHandler(CatalogoDbContext catalogoDbContext)
+        public GetByIdDetalhesCategoriaHandler(ICategoriaRepository categoriaRepository)
         {
-            _catalogoDbContext = catalogoDbContext;
+            _categoriaRepository = categoriaRepository;
         }
 
         public async Task<DetalhesCategoriaIdViewModel> Handle(GetByIdDetalhesCategoria request, CancellationToken cancellationToken)
         {
-            var categoria = await _catalogoDbContext.Categorias.SingleOrDefaultAsync(x => x.CategoriaId == request.Id);
+            var categoria = await _categoriaRepository.GetByIdDetalhesAsync(request.Id);
 
             if (categoria is null)
                 return null;
