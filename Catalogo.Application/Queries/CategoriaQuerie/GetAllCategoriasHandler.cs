@@ -1,26 +1,26 @@
 ﻿using Catalogo.Application.ViewModels;
-using Catalogo.Infrastructure.Persistence;
+using Catalogo.Core.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Catalogo.Application.Queries.CategoriaQuerie
 {
     public class GetAllCategoriasHandler : IRequestHandler<GetAllCategorias, List<CategoriaViewModel>>
     {
-        private readonly CatalogoDbContext _catalogoDbContext;
+        private readonly ICategoriaRepository _categoriaRepository;
 
-        public GetAllCategoriasHandler(CatalogoDbContext catalogoDbContext)
+        public GetAllCategoriasHandler(ICategoriaRepository categoriaRepository)
         {
-            _catalogoDbContext = catalogoDbContext;
+            _categoriaRepository = categoriaRepository;
         }
 
         public async Task<List<CategoriaViewModel>> Handle(GetAllCategorias request, CancellationToken cancellationToken)
         {
-            var categorias = _catalogoDbContext.Categorias;
-            var categoriasViewModel = await categorias
+            var categorias = await _categoriaRepository.GetAll(request.Query);
+
+            var categoriasViewModel =  categorias
                 .Select(x => new CategoriaViewModel() { Id = x.CategoriaId, Nome = x.Nome, ImagemUrl = x.ImagemUrl })
                 .OrderBy(x => x.Nome)
-                .ToListAsync();
+                .ToList();
 
             return categoriasViewModel;
         }

@@ -2,7 +2,9 @@ using Catalogo.Application.Commands.CategoriaCommand;
 using Catalogo.Application.Commands.ProdutoCommand;
 using Catalogo.Application.Services.Implementations;
 using Catalogo.Application.Services.Interfaces;
+using Catalogo.Core.Repositories;
 using Catalogo.Infrastructure.Persistence;
+using Catalogo.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +24,7 @@ builder.Services.AddDbContext<CatalogoDbContext>(options => options.UseSqlServer
 
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 
 builder.Services.AddSwaggerGen();
 
