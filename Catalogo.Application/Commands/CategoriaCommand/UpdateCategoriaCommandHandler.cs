@@ -1,25 +1,28 @@
-﻿using Catalogo.Infrastructure.Persistence;
+﻿using Catalogo.Core.Entities;
+using Catalogo.Core.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Catalogo.Application.Commands.CategoriaCommand
 {
     public class UpdateCategoriaCommandHandler : IRequestHandler<UpdateCategoriaCommand,Unit>
     {
-        private readonly CatalogoDbContext _catalogoDbContext;
+        private readonly ICategoriaRepository _categoriaRepository;
 
-        public UpdateCategoriaCommandHandler(CatalogoDbContext catalogoDbContext)
+        public UpdateCategoriaCommandHandler(ICategoriaRepository categoriaRepository)
         {
-            _catalogoDbContext = catalogoDbContext;
+            _categoriaRepository = categoriaRepository;
         }
 
         public async Task<Unit> Handle(UpdateCategoriaCommand request, CancellationToken cancellationToken)
         {
-            var categoria = await _catalogoDbContext.Categorias.SingleOrDefaultAsync(x => x.CategoriaId == request.Id);
+            var categoriaAtualizada = new Categoria()
+            {
+                CategoriaId = request.Id,
+                Nome = request.Nome,
+                ImagemUrl = request.ImagemUrl
+            };
 
-            categoria.Update(request.Nome, request.ImagemUrl);
-
-            await _catalogoDbContext.SaveChangesAsync();
+            await _categoriaRepository.Update(categoriaAtualizada);
 
             return Unit.Value;
         }
