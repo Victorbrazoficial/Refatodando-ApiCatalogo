@@ -1,5 +1,4 @@
-﻿using Catalogo.Core.Entities;
-using Catalogo.Core.Repositories;
+﻿using Catalogo.Core.Repositories;
 using MediatR;
 
 namespace Catalogo.Application.Commands.CategoriaCommand
@@ -15,14 +14,11 @@ namespace Catalogo.Application.Commands.CategoriaCommand
 
         public async Task<Unit> Handle(UpdateCategoriaCommand request, CancellationToken cancellationToken)
         {
-            var categoriaAtualizada = new Categoria()
-            {
-                CategoriaId = request.Id,
-                Nome = request.Nome,
-                ImagemUrl = request.ImagemUrl
-            };
+            var categoria = await _categoriaRepository.GetByIdDetalhesAsync(request.Id);
 
-            await _categoriaRepository.Update(categoriaAtualizada);
+            categoria.Update(request.Nome, request.ImagemUrl);
+
+            await _categoriaRepository.SaveChangeAsync();
 
             return Unit.Value;
         }

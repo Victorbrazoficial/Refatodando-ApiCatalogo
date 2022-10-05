@@ -38,21 +38,16 @@ namespace Catalogo.Infrastructure.Repositories
             await _catalogoDbContext.Categorias.AddAsync(novaCategoria);
             await _catalogoDbContext.SaveChangesAsync();
         }
-        public async Task Update(Categoria categoriaAtualizada)
-        {
-            var categoria = await _catalogoDbContext.Categorias.SingleOrDefaultAsync(x => x.CategoriaId == categoriaAtualizada.CategoriaId);
-
-            categoria.Update(categoriaAtualizada.Nome, categoriaAtualizada.ImagemUrl);
-
-            await _catalogoDbContext.SaveChangesAsync();
-        }
 
         public async Task Excluir(int id)
         {
             var categoria = await _catalogoDbContext.Categorias.SingleOrDefaultAsync(c => c.CategoriaId == id);
 
             _catalogoDbContext.Categorias.Remove(categoria);
+        }
 
+        public async Task SaveChangeAsync()
+        {
             await _catalogoDbContext.SaveChangesAsync();
         }
     }

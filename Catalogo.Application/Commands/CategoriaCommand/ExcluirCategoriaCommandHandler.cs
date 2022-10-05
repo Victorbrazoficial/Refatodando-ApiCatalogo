@@ -16,6 +16,8 @@ namespace Catalogo.Application.Commands.CategoriaCommand
         public async Task<Unit> Handle(ExcluirCategoriaCommand request, CancellationToken cancellationToken)
         {
             await _categoriaRepository.Excluir(request.Id);
+
+            await _categoriaRepository.SaveChangeAsync();
             
             return Unit.Value;
         }

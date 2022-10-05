@@ -9,6 +9,6 @@ namespace Catalogo.Core.Repositories
         Task<List<Categoria>> GetAllCategoriasProdutosAsync();
         Task Cadastrar(Categoria novaCategoria);
         Task Excluir(int exluirCategoria);
-        Task Update(Categoria atualizaCategoria); 
+        Task SaveChangeAsync();
     }
 }

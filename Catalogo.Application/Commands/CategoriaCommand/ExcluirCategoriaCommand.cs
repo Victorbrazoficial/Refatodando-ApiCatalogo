@@ -7,10 +7,5 @@ namespace Catalogo.Application.Commands.CategoriaCommand
     {
         [FromRoute]
         public int Id { get; set; }
-
-        //public ExcluirCategoriaCommand(int id)
-        //{
-        //    Id = id;
-        //}
     }
 }
