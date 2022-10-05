@@ -1,26 +1,29 @@
 ﻿using Catalogo.Core.Entities;
-using Catalogo.Infrastructure.Persistence;
+using Catalogo.Core.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Catalogo.Application.Commands.CategoriaCommand
 {
     public class CadastrarCategoriaCommandHandler : IRequestHandler<CadastrarCategoriaCommand, int>
     {
-        private readonly CatalogoDbContext _catalogoDbContext;
-        public CadastrarCategoriaCommandHandler(CatalogoDbContext catalogoDbContext)
+        private readonly ICategoriaRepository _categoriaRepository;
+        public CadastrarCategoriaCommandHandler(ICategoriaRepository categoriaRepository)
         {
-            _catalogoDbContext = catalogoDbContext;
-        }
+            _categoriaRepository = categoriaRepository;
+    }
         public async Task<int> Handle(CadastrarCategoriaCommand request, CancellationToken cancellationToken)
         {
-            var categoria = new Categoria() { CategoriaId = request.CategoriaId, Nome = request.Nome, ImagemUrl = request.ImagemUrl };
+            var novaCategoria = new Categoria()
+            {
+                CategoriaId = request.CategoriaId,
+                Nome = request.Nome,
+                ImagemUrl = request.ImagemUrl
 
-            await _catalogoDbContext.Categorias.AddAsync(categoria);
+            };
 
-            await _catalogoDbContext.SaveChangesAsync();
+            await _categoriaRepository.Cadastrar(novaCategoria);
 
-            return categoria.CategoriaId;
+            return novaCategoria.CategoriaId;
         }
     }
 }

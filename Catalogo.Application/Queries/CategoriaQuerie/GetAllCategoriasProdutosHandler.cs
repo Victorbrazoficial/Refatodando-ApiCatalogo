@@ -15,7 +15,7 @@ namespace Catalogo.Application.Queries.CategoriaQuerie
 
         public async Task<List<DetalhesCategoriaIdViewModel>> Handle(GetAllCategoriasProdutos request, CancellationToken cancellationToken)
         {
-            var categorias = await _categoriaRepository.GetAllCategoriasProdutos();
+            var categorias = await _categoriaRepository.GetAllCategoriasProdutosAsync();
 
             var categoriaViewModel = categorias
                 .Select(x => new DetalhesCategoriaIdViewModel() { Id = x.CategoriaId, Nome = x.Nome, ImagemUrl = x.ImagemUrl, Produtos = x.Produtos })

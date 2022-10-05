@@ -18,7 +18,7 @@ namespace Catalogo.Infrastructure.Repositories
             return await _catalogoDbContext.Categorias.ToListAsync();
         }
 
-        public async Task<List<Categoria>> GetAllCategoriasProdutos()
+        public async Task<List<Categoria>> GetAllCategoriasProdutosAsync()
         {
             return await _catalogoDbContext.Categorias.Include(p => p.Produtos).ToListAsync();
         }
@@ -31,6 +31,12 @@ namespace Catalogo.Infrastructure.Repositories
                 return null;
 
             return categoria;
+        }
+
+        public async Task Cadastrar(Categoria novaCategoria)
+        {
+            await _catalogoDbContext.Categorias.AddAsync(novaCategoria);
+            await _catalogoDbContext.SaveChangesAsync();
         }
     }
 }
