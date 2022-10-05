@@ -1,7 +1,5 @@
 ﻿using Catalogo.Application.Commands.CategoriaCommand;
-using Catalogo.Application.InputModels;
 using Catalogo.Application.Queries.CategoriaQuerie;
-using Catalogo.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,12 +9,10 @@ namespace Catalogo.API.Controllers
     [ApiController]
     public class CategoriasController : ControllerBase
     {
-        private readonly ICategoriaService _categoriaService;
         private readonly IMediator _mediator;
 
-        public CategoriasController(ICategoriaService categoriaService, IMediator mediator)
+        public CategoriasController(IMediator mediator)
         {
-            _categoriaService = categoriaService;
             _mediator = mediator;
         }
 
