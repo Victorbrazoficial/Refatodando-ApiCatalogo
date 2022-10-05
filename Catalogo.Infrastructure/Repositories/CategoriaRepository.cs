@@ -38,5 +38,14 @@ namespace Catalogo.Infrastructure.Repositories
             await _catalogoDbContext.Categorias.AddAsync(novaCategoria);
             await _catalogoDbContext.SaveChangesAsync();
         }
+
+        public async Task Excluir(int id)
+        {
+            var categoria = await _catalogoDbContext.Categorias.SingleOrDefaultAsync(c => c.CategoriaId == id);
+
+            _catalogoDbContext.Categorias.Remove(categoria);
+
+            await _catalogoDbContext.SaveChangesAsync();
+        }
     }
 }

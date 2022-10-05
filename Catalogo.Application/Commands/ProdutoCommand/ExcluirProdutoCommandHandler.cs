@@ -18,7 +18,7 @@ namespace Catalogo.Application.Commands.ProdutoCommand
 
             var produto = await _catalogoDbContext.Produtos.SingleOrDefaultAsync(p => p.ProdutoId == request.Id);
 
-             _catalogoDbContext.Produtos.Remove(produto);
+            _catalogoDbContext.Produtos.Remove(produto);
 
             await _catalogoDbContext.SaveChangesAsync();
 
