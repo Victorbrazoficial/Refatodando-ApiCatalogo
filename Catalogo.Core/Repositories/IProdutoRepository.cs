@@ -4,7 +4,8 @@ namespace Catalogo.Core.Repositories
 {
     public interface IProdutoRepository
     {
-        Task<List<Produto>> GetAll(string query);
+        Task<List<Produto>> GetAllAsync(string query);
+        Task<Produto> GetByIdDetalhesAsync(int id);
 
     }
 }

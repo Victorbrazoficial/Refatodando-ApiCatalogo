@@ -1,4 +1,5 @@
 ﻿using Catalogo.Application.ViewModels;
+using Catalogo.Core.Repositories;
 using Catalogo.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -7,16 +8,16 @@ namespace Catalogo.Application.Queries.ProdutoQuerie
 {
     public class GetByIdDetalhesProdutoHandler : IRequestHandler<GetByIdDetalhesProduto, DetalhesProdutoIdViewModel>
     {
-        public CatalogoDbContext _catalogoDbContext;
+        private IProdutoRepository _produtoRepository;
 
-        public GetByIdDetalhesProdutoHandler(CatalogoDbContext catalogoDbContext)
+        public GetByIdDetalhesProdutoHandler(IProdutoRepository produtoRepository)
         {
-            _catalogoDbContext = catalogoDbContext;
+            _produtoRepository = produtoRepository;
         }
 
         public async Task<DetalhesProdutoIdViewModel> Handle(GetByIdDetalhesProduto request, CancellationToken cancellationToken)
         {
-            var produto = await _catalogoDbContext.Produtos.SingleOrDefaultAsync(p => p.ProdutoId == request.Id);
+            var produto = await _produtoRepository.GetByIdDetalhesAsync(request.Id);
 
             if (produto is null)
                 return null;

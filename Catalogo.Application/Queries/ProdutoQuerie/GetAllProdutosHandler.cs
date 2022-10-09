@@ -15,7 +15,7 @@ namespace Catalogo.Application.Queries.ProdutoQuerie
 
         public async Task<List<ProdutoViewModel>> Handle(GetAllProdutos request, CancellationToken cancellationToken)
         {
-            var produtos = await _produtoRepository.GetAll(request.Query);
+            var produtos = await _produtoRepository.GetAllAsync(request.Query);
 
             var produtoViewModel =  produtos
                 .Select(x => new ProdutoViewModel() { Id = x.ProdutoId, Nome = x.Nome, Descricao = x.Descricao, Estoque = x.Estoque, ImagemUrl = x.ImagemUrl })
