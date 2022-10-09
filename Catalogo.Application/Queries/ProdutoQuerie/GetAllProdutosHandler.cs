@@ -1,26 +1,26 @@
 ﻿using Catalogo.Application.ViewModels;
-using Catalogo.Infrastructure.Persistence;
+using Catalogo.Core.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Catalogo.Application.Queries.ProdutoQuerie
 {
     public class GetAllProdutosHandler : IRequestHandler<GetAllProdutos, List<ProdutoViewModel>>
     {
-        public CatalogoDbContext _catalogoDbContext;
+        public IProdutoRepository _produtoRepository;
 
-        public GetAllProdutosHandler(CatalogoDbContext catalogoDbContext)
+        public GetAllProdutosHandler(IProdutoRepository produtoRepository)
         {
-            _catalogoDbContext = catalogoDbContext;
+            _produtoRepository = produtoRepository;
         }
 
         public async Task<List<ProdutoViewModel>> Handle(GetAllProdutos request, CancellationToken cancellationToken)
         {
-            var produtos = _catalogoDbContext.Produtos;
-            var produtoViewModel = await produtos
+            var produtos = await _produtoRepository.GetAll(request.Query);
+
+            var produtoViewModel =  produtos
                 .Select(x => new ProdutoViewModel() { Id = x.ProdutoId, Nome = x.Nome, Descricao = x.Descricao, Estoque = x.Estoque, ImagemUrl = x.ImagemUrl })
                 .OrderBy(x => x.Nome)
-                .ToListAsync();
+                .ToList();
 
             return produtoViewModel;
         }
