@@ -1,28 +1,27 @@
-﻿using Catalogo.Infrastructure.Persistence;
+﻿using Catalogo.Core.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Catalogo.Application.Commands.ProdutoCommand
 {
     public class UpdateProdutoCommandHandler : IRequestHandler<UpdateProdutoCommand, Unit>
     {
-        private readonly CatalogoDbContext _catalogoDbContext;
+        private readonly IProdutoRepository _produtoRepository;
 
-        public UpdateProdutoCommandHandler(CatalogoDbContext catalogoDbContext)
+        public UpdateProdutoCommandHandler(IProdutoRepository produtoRepository)
         {
-            _catalogoDbContext = catalogoDbContext;
+            _produtoRepository = produtoRepository;
         }
 
         public async Task<Unit> Handle(UpdateProdutoCommand request, CancellationToken cancellationToken)
         {
-            var produto = await _catalogoDbContext.Produtos.SingleOrDefaultAsync(p => p.ProdutoId == request.Id);
+            var produto = await _produtoRepository.GetByIdDetalhesAsync(request.Id);
 
             if (produto is null)
                 throw new NullReferenceException($"A referencia {produto} é nula");
 
             produto.Update(request.Nome, request.Descricao, request.Preco, request.ImagemUrl, request.CategoriaId);
 
-            await _catalogoDbContext.SaveChangesAsync();
+            await _produtoRepository.SaveChangesAsync();
 
             return Unit.Value;
         }
