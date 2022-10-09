@@ -8,6 +8,7 @@ namespace Catalogo.Core.Repositories
         Task<Produto> GetByIdDetalhesAsync(int id);
         Task Cadastrar(Produto novoProduto);
         Task SaveChangesAsync();
+        Task Excluir(int exluirProduto);
 
     }
 }

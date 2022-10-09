@@ -36,6 +36,16 @@ namespace Catalogo.Infrastructure.Repositories
             return produto;
         }
 
+        public async Task Excluir(int id)
+        {
+            var produto = await _catalogoDbContext.Produtos.SingleOrDefaultAsync(p => p.ProdutoId == id);
+
+            if (produto is null)
+                throw new NullReferenceException($"A referencia {produto} é nula");
+            
+            _catalogoDbContext.Produtos.Remove(produto);
+        }
+
         public async Task SaveChangesAsync()
         {
             await _catalogoDbContext.SaveChangesAsync();
