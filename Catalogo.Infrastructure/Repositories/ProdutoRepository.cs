@@ -14,6 +14,11 @@ namespace Catalogo.Infrastructure.Repositories
             _catalogoDbContext = catalogoDbContext;
         }
 
+        public async Task Cadastrar(Produto novoProduto)
+        {
+            await _catalogoDbContext.AddAsync(novoProduto);
+        }
+
         public async Task<List<Produto>> GetAllAsync(string query)
         {
             var produtos = await _catalogoDbContext.Produtos.ToListAsync();
@@ -29,6 +34,11 @@ namespace Catalogo.Infrastructure.Repositories
                 return null;
 
             return produto;
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _catalogoDbContext.SaveChangesAsync();
         }
     }
 }

@@ -22,6 +22,7 @@ namespace Catalogo.Application.Commands.CategoriaCommand
             };
 
             await _categoriaRepository.Cadastrar(novaCategoria);
+            await _categoriaRepository.SaveChangeAsync();
 
             return novaCategoria.CategoriaId;
         }

@@ -36,7 +36,6 @@ namespace Catalogo.Infrastructure.Repositories
         public async Task Cadastrar(Categoria novaCategoria)
         {
             await _catalogoDbContext.Categorias.AddAsync(novaCategoria);
-            await _catalogoDbContext.SaveChangesAsync();
         }
 
         public async Task Excluir(int id)

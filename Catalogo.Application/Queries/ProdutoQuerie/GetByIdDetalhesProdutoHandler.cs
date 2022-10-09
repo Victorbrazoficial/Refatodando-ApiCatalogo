@@ -1,8 +1,6 @@
 ﻿using Catalogo.Application.ViewModels;
 using Catalogo.Core.Repositories;
-using Catalogo.Infrastructure.Persistence;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Catalogo.Application.Queries.ProdutoQuerie
 {

@@ -6,6 +6,8 @@ namespace Catalogo.Core.Repositories
     {
         Task<List<Produto>> GetAllAsync(string query);
         Task<Produto> GetByIdDetalhesAsync(int id);
+        Task Cadastrar(Produto novoProduto);
+        Task SaveChangesAsync();
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Catalogo.Core.Entities;
+using Catalogo.Core.Repositories;
 using Catalogo.Infrastructure.Persistence;
 using MediatR;
 
@@ -6,11 +7,11 @@ namespace Catalogo.Application.Commands.ProdutoCommand
 {
     public class CadastrarProdutoCommandHandler : IRequestHandler<CadastrarProdutoCommand, int>
     {
-        private readonly CatalogoDbContext _catalogoDbContext;
+        private readonly IProdutoRepository _produtoRepository;
 
-        public CadastrarProdutoCommandHandler(CatalogoDbContext catalogoDbContext)
+        public CadastrarProdutoCommandHandler(IProdutoRepository produtoRepository)
         {
-            _catalogoDbContext = catalogoDbContext;
+            _produtoRepository = produtoRepository;
         }
 
         public async Task<int> Handle(CadastrarProdutoCommand request, CancellationToken cancellationToken)
@@ -26,9 +27,8 @@ namespace Catalogo.Application.Commands.ProdutoCommand
                 CategoriaId = request.CategoriaId
             };
 
-            await _catalogoDbContext.Produtos.AddAsync(novoProduto);
-
-            await _catalogoDbContext.SaveChangesAsync();
+            await _produtoRepository.Cadastrar(novoProduto);
+            await _produtoRepository.SaveChangesAsync();
 
             return novoProduto.ProdutoId;
         }
