@@ -1,10 +1,12 @@
 using Catalogo.Application.Commands.CategoriaCommand;
-using Catalogo.Application.Commands.ProdutoCommand;
 using Catalogo.Application.Services.Implementations;
 using Catalogo.Application.Services.Interfaces;
+using Catalogo.Application.Validations;
 using Catalogo.Core.Repositories;
 using Catalogo.Infrastructure.Persistence;
 using Catalogo.Infrastructure.Repositories;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<CadastrarCategoriaCommandValidator>();
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
