@@ -8,6 +8,7 @@ namespace Catalogo.Infrastructure.Persistence
     {
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public CatalogoDbContext(DbContextOptions<CatalogoDbContext> options) : base(options)
         {
