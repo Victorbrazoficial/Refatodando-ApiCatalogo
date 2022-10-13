@@ -14,7 +14,7 @@ namespace Catalogo.Infrastructure.Repositories
             _catalogoDbContext = catalogoDbContext;
         }
 
-        public async Task Cadastrar(User novoUsuario)
+        public async Task CadastrarAsync(User novoUsuario)
         {
             await _catalogoDbContext.AddAsync(novoUsuario);
         }
@@ -22,6 +22,17 @@ namespace Catalogo.Infrastructure.Repositories
         public async Task<List<User>> GetAllAsync()
         {
             return await _catalogoDbContext.Users.ToListAsync();
+        }
+
+        public async Task<User> GetByIdAsync(int id)
+        {
+            
+            var usuario = await _catalogoDbContext.Users.SingleOrDefaultAsync(u => u.Id == id);
+
+            if (usuario is null)
+                return null;
+
+            return usuario;
         }
 
         public async Task SaveChangesAsync()

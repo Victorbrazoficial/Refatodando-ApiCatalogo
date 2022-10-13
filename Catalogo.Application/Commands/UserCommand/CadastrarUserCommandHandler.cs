@@ -25,7 +25,7 @@ namespace Catalogo.Application.Commands.UserCommand
                 Role = request.Role
             };
 
-            await _userRepository.Cadastrar(novoUsuario);
+            await _userRepository.CadastrarAsync(novoUsuario);
             await _userRepository.SaveChangesAsync();
 
             return novoUsuario.Id;

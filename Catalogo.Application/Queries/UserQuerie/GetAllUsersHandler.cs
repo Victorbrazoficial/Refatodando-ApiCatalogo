@@ -23,7 +23,6 @@ namespace Catalogo.Application.Queries.UserQuerie
                     Id = x.Id,
                     NomeCompleto = x.NomeCompleto,
                     Email = x.Email,
-                    Password = x.Password,
                     Role = x.Role,
                     DataAniversario = x.DataAniversario,
                     DataCadastro = x.DataCadastro

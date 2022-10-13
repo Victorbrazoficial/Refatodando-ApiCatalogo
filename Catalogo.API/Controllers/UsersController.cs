@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Catalogo.API.Controllers
 {
-    [ApiController]
     [Route("api/usuarios")]
+    [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -31,7 +31,20 @@ namespace Catalogo.API.Controllers
         {
             var cadastrarUsuario = await _mediator.Send(request);
 
-            return CreatedAtAction(nameof(GetAllUsers), new { id = request.Id }, cadastrarUsuario);
+            return CreatedAtAction(nameof(GetByIdUser), new { id = request.Id }, request);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdUser(int id)
+        {
+            var getByIdUSer = new GetByIdUser() { Id = id };
+
+            var usuario = await _mediator.Send(getByIdUSer);
+
+            if (usuario is null)
+                return NotFound("Usuario não encontrado.");
+
+            return Ok(usuario);
         }
     }
 }
