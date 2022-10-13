@@ -46,5 +46,16 @@ namespace Catalogo.API.Controllers
 
             return Ok(usuario);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, UpdateUserCommand request)
+        {
+            await _mediator.Send(request);
+
+            if (request.Id != id)
+                return NotFound($"Usuario não encontrado");
+
+            return NoContent();
+        }
     }
 }

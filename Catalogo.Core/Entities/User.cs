@@ -14,5 +14,14 @@
         {
             DataCadastro = DateTime.Now;
         }
+
+        public void Update(string nome, string email, string password, string role, DateTime dataAniversario)
+        {
+            NomeCompleto = nome;
+            Email = email;
+            Password = password;
+            Role = role;
+            DataAniversario = dataAniversario;
+        }
     }
 }
