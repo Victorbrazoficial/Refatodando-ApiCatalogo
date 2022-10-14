@@ -57,5 +57,15 @@ namespace Catalogo.API.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var command = new ExcluirUserCommand() { Id = id };
+
+            var usuario = await _mediator.Send(command);
+
+            return Ok(usuario);
+        }
     }
 }

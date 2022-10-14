@@ -19,6 +19,13 @@ namespace Catalogo.Infrastructure.Repositories
             await _catalogoDbContext.AddAsync(novoUsuario);
         }
 
+        public async Task Excluir(int id)
+        {
+            var usuario = await _catalogoDbContext.Users.SingleOrDefaultAsync(u => u.Id == id);
+
+            _catalogoDbContext.Remove(usuario);
+        }
+
         public async Task<List<User>> GetAllAsync()
         {
             return await _catalogoDbContext.Users.ToListAsync();

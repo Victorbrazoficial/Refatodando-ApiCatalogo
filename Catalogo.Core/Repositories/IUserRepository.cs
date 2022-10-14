@@ -7,6 +7,7 @@ namespace Catalogo.Core.Repositories
         Task CadastrarAsync(User novoUsuario);
         Task<List<User>> GetAllAsync();
         Task<User> GetByIdAsync(int id);
+        Task Excluir(int id);
         Task SaveChangesAsync();
     }
 }
