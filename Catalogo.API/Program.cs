@@ -3,6 +3,8 @@ using Catalogo.Application.Services.Implementations;
 using Catalogo.Application.Services.Interfaces;
 using Catalogo.Application.Validations;
 using Catalogo.Core.Repositories;
+using Catalogo.Core.Service;
+using Catalogo.Infrastructure.Auth;
 using Catalogo.Infrastructure.Persistence;
 using Catalogo.Infrastructure.Repositories;
 using FluentValidation;
@@ -33,6 +35,7 @@ builder.Services.AddDbContext<CatalogoDbContext>(options => options.UseSqlServer
 
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
