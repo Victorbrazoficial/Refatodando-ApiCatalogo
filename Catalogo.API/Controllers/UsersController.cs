@@ -1,12 +1,15 @@
-﻿using Catalogo.Application.Commands.UserCommand;
+﻿using Catalogo.Application.Commands.LoginUserCommand;
+using Catalogo.Application.Commands.UserCommand;
 using Catalogo.Application.Queries.UserQuerie;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalogo.API.Controllers
 {
     [Route("api/usuarios")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -27,6 +30,7 @@ namespace Catalogo.API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Cadastrar(CadastrarUserCommand request)
         {
             var cadastrarUsuario = await _mediator.Send(request);
@@ -45,6 +49,18 @@ namespace Catalogo.API.Controllers
                 return NotFound("Usuario não encontrado.");
 
             return Ok(usuario);
+        }
+
+        [HttpPut("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] LoginUserCommand request)
+        {
+            var loginUserViewModel = await _mediator.Send(request);
+
+            if (loginUserViewModel is null)
+                return BadRequest();
+
+            return Ok(loginUserViewModel);
         }
 
         [HttpPut("{id}")]

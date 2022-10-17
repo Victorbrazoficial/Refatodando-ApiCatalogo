@@ -1,12 +1,14 @@
 ﻿using Catalogo.Application.Commands.CategoriaCommand;
 using Catalogo.Application.Queries.CategoriaQuerie;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalogo.API.Controllers
 {
     [Route("api/categorias")]
     [ApiController]
+    [Authorize]
     public class CategoriasController : ControllerBase
     {
         private readonly IMediator _mediator;

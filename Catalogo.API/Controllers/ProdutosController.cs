@@ -1,14 +1,15 @@
 ﻿using Catalogo.Application.Commands.ProdutoCommand;
-using Catalogo.Application.InputModels;
 using Catalogo.Application.Queries.ProdutoQuerie;
 using Catalogo.Application.Services.Interfaces;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalogo.API.Controllers
 {
     [Route("api/produtos")]
     [ApiController]
+    [Authorize]
     public class ProdutosController : ControllerBase
     {
         private readonly IProdutoService _produtoService;
