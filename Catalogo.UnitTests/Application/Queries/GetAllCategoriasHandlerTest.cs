@@ -1,17 +1,17 @@
 ﻿using Catalogo.Application.Queries.CategoriaQuerie;
-using Catalogo.Application.ViewModels;
 using Catalogo.Core.Entities;
 using Catalogo.Core.Repositories;
 using Moq;
 
 namespace Catalogo.UnitTests.Application.Queries
 {
-    public class GetAllCategoriasHandlerTests
+    public class GetAllCategoriasHandlerTest
     {
         [Fact]
         public async Task ExistemTresCategorias_QuandoExecutado_RetornarTresCategoriaViewModel()
         {
-            //A
+            //Arrange
+
             var categorias = new List<Categoria>()
             {
                 new Categoria()
