@@ -3,7 +3,7 @@ using Catalogo.Core.Entities;
 using Catalogo.Core.Repositories;
 using Moq;
 
-namespace Catalogo.UnitTests.Application.Commands
+namespace Catalogo.UnitTests.Application.Commands.CategoriaCommands
 {
     public class UpdateCategoriaCommandHandlerTest
     {
@@ -24,7 +24,7 @@ namespace Catalogo.UnitTests.Application.Commands
 
             //Act
             await updateCategoriaCommandHandler.Handle(updateCategoriaCommand, new CancellationToken());
-            
+
             //Assert
             categoriaRepositoryMock.Verify(c => c.GetByIdDetalhesAsync(It.IsAny<int>()), Times.Once());
             categoriaRepositoryMock.Verify(c => c.SaveChangeAsync(), Times.Once());

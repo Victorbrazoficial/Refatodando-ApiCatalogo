@@ -3,7 +3,7 @@ using Catalogo.Core.Entities;
 using Catalogo.Core.Repositories;
 using Moq;
 
-namespace Catalogo.UnitTests.Application.Commands
+namespace Catalogo.UnitTests.Application.Commands.CategoriaCommands
 {
     public class CadastrarCategoriaCommandHandlerTest
     {
