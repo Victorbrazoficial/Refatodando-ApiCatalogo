@@ -20,7 +20,7 @@ namespace Catalogo.UnitTests.Application.Commands.CategoriaCommands
             //Assert 
             Assert.True(excluirCategoriaCommand.Id > 0);
             Assert.Equal(1, excluirCategoriaCommand.Id);
-            categoriaRepositoryMock.Verify(c => c.Excluir(excluirCategoriaCommand.Id), Times.Once);
+            categoriaRepositoryMock.Verify(c => c.Excluir(It.IsAny<int>()), Times.Once);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Catalogo.UnitTests.Application.Commands.CategoriaCommands
     public class CadastrarCategoriaCommandHandlerTest
     {
         [Fact]
-        public async Task entrouDados_Executado_RetornarCategoriaId()
+        public async Task entrouDados_Executado_RetornarIdDaCategoria()
         {
             //Arranger
             var categoriaRepositoryMock = new Mock<ICategoriaRepository>();
