@@ -15,7 +15,6 @@ namespace Catalogo.UnitTests.Application.Commands.UserCommands
             var authService = new Mock<IAuthService>();
             var cadastrarUserCommand = new CadastrarUserCommand()
             {
-
                 Id = 1,
                 NomeCompleto = "Usuario 1",
                 Email = "usuario1@teste.com",
