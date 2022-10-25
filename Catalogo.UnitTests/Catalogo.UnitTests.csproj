@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Catalogo.API\Catalogo.API.csproj" />
     <ProjectReference Include="..\Catalogo.Application\Catalogo.Application.csproj" />
     <ProjectReference Include="..\Catalogo.Core\Catalogo.Core.csproj" />
   </ItemGroup>
