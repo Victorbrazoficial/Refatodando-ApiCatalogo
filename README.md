@@ -1,7 +1,9 @@
 # Refatorando-ApiCatalogo - API
 
-O Refatorando-Catalogo é uma API de estudo. A principio desenvolvi a seguinte API: "https://github.com/Victorbrazoficial/ApiCatalogo". Porém ela não estava utilizando as melhores praticas, por isso decidi refazer a API. 
+O Refatorando-Catalogo é uma API de estudo. A principio desenvolvi a seguinte API: "https://github.com/Victorbrazoficial/ApiCatalogo". 
+Porém ela não estava utilizando as melhores praticas, por isso decidi refazer a API. 
 Tendo as seguintes funcionalidades: Cadastro, Atualização, Exclusão, Consulta de Serviço do Catalogo, Cadastro de Usuário e Login.
+
 ## Tecnologias e práticas utilizadas
 
 - API desenvolvida com .NET 6
