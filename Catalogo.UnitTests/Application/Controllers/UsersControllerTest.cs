@@ -4,10 +4,8 @@ using Catalogo.Application.Commands.UserCommand;
 using Catalogo.Application.Queries.UserQuerie;
 using Catalogo.Application.ViewModels;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
 
 namespace Catalogo.UnitTests.Application.Controllers
 {
@@ -90,6 +88,20 @@ namespace Catalogo.UnitTests.Application.Controllers
 
             //Act
             var result = await controller.GetByIdUser(getByIdUser.Id);
+
+            //Assert
+            Assert.Equal(200, (result as OkObjectResult).StatusCode);
+        }
+
+        [Fact]
+        public async Task Delete_Executado_Retorna_200()
+        {
+            //Arranger
+            var controller = new UsersController(_iMediator.Object);
+            var excluirUsercommand = new ExcluirUserCommand() { Id = 1 };
+
+            //Act
+            var result = await controller.Delete(excluirUsercommand.Id);
 
             //Assert
             Assert.Equal(200, (result as OkObjectResult).StatusCode);
