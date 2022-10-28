@@ -1,6 +1,7 @@
 ﻿using Catalogo.API.Controllers;
 using Catalogo.Application.Commands.LoginUserCommand;
 using Catalogo.Application.Commands.UserCommand;
+using Catalogo.Application.Queries.UserQuerie;
 using Catalogo.Application.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -74,6 +75,21 @@ namespace Catalogo.UnitTests.Application.Controllers
 
             //Act
             var result = await controller.Login(loginUserCommand);
+
+            //Assert
+            Assert.Equal(200, (result as OkObjectResult).StatusCode);
+        }
+
+        [Fact]
+        public async Task GetByIdUser_Executado_Retorna_200()
+        {
+            //Assert
+            _iMediator.Setup(x => x.Send<DetalhesUserViewModel>(It.IsAny<GetByIdUser>(), default)).ReturnsAsync(new DetalhesUserViewModel());
+            var getByIdUser = new GetByIdUser() { Id = 1 };
+            var controller = new UsersController(_iMediator.Object);
+
+            //Act
+            var result = await controller.GetByIdUser(getByIdUser.Id);
 
             //Assert
             Assert.Equal(200, (result as OkObjectResult).StatusCode);
