@@ -1,18 +1,18 @@
 ﻿using Catalogo.API.Controllers;
 using Catalogo.Application.Commands.LoginUserCommand;
 using Catalogo.Application.Commands.UserCommand;
-using Catalogo.Core.Entities;
-using Catalogo.Core.Service;
+using Catalogo.Application.ViewModels;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System;
 
 namespace Catalogo.UnitTests.Application.Controllers
 {
     public class UsersControllerTest
     {
-        private readonly Mock<IMediator> _iMediator = new Mock<IMediator>();
-        private readonly Mock<IAuthService> _iAuthService = new Mock<IAuthService>();
+        private Mock<IMediator> _iMediator = new Mock<IMediator>();
 
         [Fact]
         public async Task Cadastrar_Executado_Retorna201()
@@ -63,40 +63,20 @@ namespace Catalogo.UnitTests.Application.Controllers
             Assert.Equal(200, (result as OkObjectResult).StatusCode);
         }
 
-        private List<User> ListaDeUsuarios()
+        [Fact]
+        public async Task Login_Executado_Retorna_200()
         {
-            var usuarios = new List<User>()
-            {
-                new User()
-                {
-                    Id = 1,
-                    NomeCompleto = "Usuario 1",
-                    Email = "usuario1@teste.com",
-                    Password = "12345678",
-                    DataAniversario = DateTime.Now,
-                    DataCadastro = DateTime.Now
-                },
-                new User()
-                {
-                    Id = 2,
-                    NomeCompleto = "Usuario 2",
-                    Email = "usuario2@teste.com",
-                    Password = "12345678",
-                    DataAniversario = DateTime.Now,
-                    DataCadastro = DateTime.Now
-                },
-                new User()
-                {
-                    Id = 3,
-                    NomeCompleto = "Usuario 3",
-                    Email = "usuario3@teste.com",
-                    Password = "12345678",
-                    DataAniversario = DateTime.Now,
-                    DataCadastro = DateTime.Now
-                }
-            };
+            //Arranger
+            //mock.Setup(x => x.Send<Tipo resultado>(It.IsAny<TipoInput>(), default)).ReturnsAsync(objeto esperado)
+            _iMediator.Setup(x => x.Send<LoginUserViewModel>(It.IsAny<LoginUserCommand>(), default)).ReturnsAsync(new LoginUserViewModel());
+            var loginUserCommand = new LoginUserCommand() { Email = "xxx@teste.com", Password = "123456789" };
+            var controller = new UsersController(_iMediator.Object);
 
-            return usuarios;
+            //Act
+            var result = await controller.Login(loginUserCommand);
+
+            //Assert
+            Assert.Equal(200, (result as OkObjectResult).StatusCode);
         }
     }
 }

@@ -44,9 +44,14 @@ namespace Catalogo.Infrastructure.Repositories
 
         public async Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash)
         {
-            return await _catalogoDbContext
+            var usuario = await _catalogoDbContext
                 .Users.
                 SingleOrDefaultAsync(u => u.Email == email && u.Password == passwordHash);
+
+            if (usuario is null)
+                return null;
+
+            return usuario;
         }
 
         public async Task SaveChangesAsync()
