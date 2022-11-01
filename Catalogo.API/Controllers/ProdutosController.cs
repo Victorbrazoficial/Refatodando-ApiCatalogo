@@ -1,6 +1,5 @@
 ﻿using Catalogo.Application.Commands.ProdutoCommand;
 using Catalogo.Application.Queries.ProdutoQuerie;
-using Catalogo.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +11,9 @@ namespace Catalogo.API.Controllers
     [Authorize]
     public class ProdutosController : ControllerBase
     {
-        private readonly IProdutoService _produtoService;
         private readonly IMediator _mediator;
-        public ProdutosController(IProdutoService produtoService, IMediator mediator)
+        public ProdutosController(IMediator mediator)
         {
-            _produtoService = produtoService;
             _mediator = mediator;
         }
         
